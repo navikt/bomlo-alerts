@@ -14,5 +14,5 @@ spec:
       expr: sum(increase(logback_events_total{team="tbd", level =~"error"} [5m]) ) by (app) > 0.9
       for: 3m
       description: "{{ $labels.app }} rapporterer error i loggene "
-      action: "Sjekk loggene til {{ $labels.log_app }}"
+      action: "Sjekk loggene til {{ $labels.app }}"
       severity: danger
