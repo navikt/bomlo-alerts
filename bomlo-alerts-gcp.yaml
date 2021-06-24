@@ -1,0 +1,18 @@
+apiVersion: "nais.io/v1"
+kind: "Alert"
+metadata:
+  name: harbeidsgiver-alerts-gcp
+  namespace: helsearbeidsgiver
+  labels:
+    team: helsearbeidsgiver
+spec:
+  receivers:
+    slack:
+      channel: '#team-bømlo-ops'
+  alerts:
+    - alert: bomlo-errorlogging
+      expr: sum(increase(logback_events_total{team="tbd", level =~"error"} [5m]) ) by (app) > 0.9
+      for: 3m
+      description: "{{ $labels.app }} rapporterer error i loggene "
+      action: "Sjekk loggene til {{ $labels.log_app }}"
+      severity: danger
