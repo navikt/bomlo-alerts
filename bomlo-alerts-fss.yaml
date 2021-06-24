@@ -1,10 +1,10 @@
 apiVersion: nais.io/v1
 kind: Alert
 metadata:
-  name: harbeidsgiver-alerts-fss
-  namespace: default
+  name: bomlo-alerts-fss
+  namespace: tbd
   labels:
-    team: helsearbeidsgiver
+    team: tbd
 spec:
   receivers:
     slack:

@@ -1,10 +1,10 @@
 apiVersion: "nais.io/v1"
 kind: "Alert"
 metadata:
-  name: harbeidsgiver-alerts-gcp
-  namespace: helsearbeidsgiver
+  name: bomlo-alerts-gcp
+  namespace: tbd
   labels:
-    team: helsearbeidsgiver
+    team: tbd
 spec:
   receivers:
     slack:
