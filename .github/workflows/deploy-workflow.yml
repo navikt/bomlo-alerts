@@ -1,0 +1,28 @@
+name: Deploy arbeidsgiver-alert to NAIS
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy_prod_fss:
+    name: Deploy alert to prod-fss
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-fss
+          RESOURCE: harbeidsgiver-alerts-fss.yaml
+  deploy_prod_gcp:
+    name: Deploy alert to prod-gcp
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: harbeidsgiver-alerts-gcp.yaml
