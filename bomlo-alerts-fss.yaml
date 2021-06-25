@@ -14,12 +14,12 @@ spec:
       expr: sum(increase(logback_events_total{team="tbd", level =~"error"} [5m]) ) by (app) > 0.9
       for: 3m
       description: "{{ $labels.app }} rapporterer error i loggene "
-      action: "Undersøk <https://logs.adeo.no/goto/c586d2e5449cf0f067b082adbc6b7211|loggene>"
+      action: "Undersøk <https://https://logs.adeo.no/goto/926731bfd29d1ae7da9552d0e4f45ca8|loggene>"
       documentation: https://github.com/navikt/tbd/blob/master/redteam-wiki/kjente_feil.md
       severity: danger
     - alert: bomlo-kafka-lag
       expr:  sum(kafka_consumergroup_group_topic_sum_lag{group=~"^tbd-.+",group!="tbd-sparkel-stonadsstatistikk-v1",group!="tbd-sparkel-oppgaver-v1",group!="tbd-sparkel-arbeidsgiver-v1",group!="tbd-sparkel-gosys-v1"}) by (group,topic) > 10000
       for: 5m
       description: '{{ $labels.app }} har betydningsfull lag mot {{ $labels.topic }}'
-      action: "Prøv <https://logs.adeo.no/goto/c586d2e5449cf0f067b082adbc6b7211|loggene>"
+      action: "Prøv <https://logs.adeo.no/goto/926731bfd29d1ae7da9552d0e4f45ca8|loggene>"
       severity: warning
