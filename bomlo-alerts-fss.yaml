@@ -27,3 +27,9 @@ spec:
       description: '{{ $labels.app }} har {{ $value }} consumer lag mot {{ $labels.topic }}'
       action: "Prøv <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
       severity: danger
+    - alert: bomlo-kontinuerlig-restart
+      expr: sum(increase(kube_pod_container_status_restarts_total{team="tbd"}[30m])) by (container) > 2
+      for: 5m
+      description: "{{ $labels.container }} har restartet flere ganger siste halvtimen!"
+      action: "Undersøk <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
+      severity: warning
