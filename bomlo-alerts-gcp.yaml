@@ -16,7 +16,7 @@ spec:
     group_interval: 5m
   alerts:
     - alert: bomlo-errorlogging
-      expr: (100 * sum by (log_app) (rate(logd_messages_total{team="tbd",log_level="Error"}[5m])) / sum by (log_app) (rate(logd_messages_total{team="tbd"}[5m]))) > 10
+      expr: (100 * sum by (log_app) (rate(logd_messages_total{log_team="tbd",log_level="Error"}[5m])) / sum by (log_app) (rate(logd_messages_total{log_team="tbd"}[5m]))) > 10
       for: 2m
       description: "Høy feilrate: {{  $value | printf \"%.1f\" }} % i {{ $labels.log_app }} "
       action: "Undersøk <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene> eller se <https://github.com/navikt/tbd/blob/master/redteam-wiki/kjente_feil.md|kjente feil>"
@@ -28,8 +28,14 @@ spec:
       action: "Prøv <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
       severity: danger
     - alert: bomlo-kontinuerlig-restart
-      expr: sum(increase(kube_pod_container_status_restarts_total{team="tbd"}[30m])) by (container) > 2
+      expr: sum(increase(kube_pod_container_status_restarts_total{namespace="tbd"}[30m])) by (container) > 2
       for: 5m
       description: "{{ $labels.container }} har restartet flere ganger siste halvtimen!"
+      action: "Undersøk <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
+      severity: warning
+    - alert: bomlo-app-nede
+      expr: up{team="tbd",job="kubernetes-pods"} == 0
+      for: 2m
+      description: "{{ $labels.app }} er nede"
       action: "Undersøk <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
       severity: warning
