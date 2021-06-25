@@ -13,7 +13,7 @@ spec:
     - alert: bomlo-errorlogging
       expr: sum(increase(logback_events_total{team="tbd", level =~"error"} [5m]) ) by (app) > 0.9
       for: 3m
-      description: "{{  $value | printf "%.1f" }} error(s) i {{ $labels.app }} "
+      description: "{{  $value | printf '%.1f' }} error(s) i {{ $labels.app }} "
       documentation: https://github.com/navikt/tbd/blob/master/redteam-wiki/kjente_feil.md
       action: "Undersøk <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
       severity: danger
