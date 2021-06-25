@@ -18,7 +18,7 @@ spec:
     - alert: bomlo-errorlogging
       expr: (100 * sum by (log_app) (rate(logd_messages_total{team="tbd",log_level="Error"}[5m])) / sum by (log_app) (rate(logd_messages_total{team="tbd"}[5m]))) > 10
       for: 2m
-      description: "Høy feilrate ({{  $value | printf \"%.1f\" }}%) i {{ $labels.log_app }} "
+      description: "Høy feilrate {{  $value | printf \"%.1f\" }} % i {{ $labels.log_app }} "
       action: "Undersøk <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene> eller se <https://github.com/navikt/tbd/blob/master/redteam-wiki/kjente_feil.md|kjente feil>"
       severity: danger
     - alert: bomlo-kafka-lag
