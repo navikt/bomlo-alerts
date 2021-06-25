@@ -21,5 +21,5 @@ spec:
       expr:  sum(kafka_consumergroup_group_topic_sum_lag{group=~"^tbd-.+",group!="tbd-sparkel-stonadsstatistikk-v1",group!="tbd-sparkel-oppgaver-v1",group!="tbd-sparkel-arbeidsgiver-v1",group!="tbd-sparkel-gosys-v1"}) by (group,topic) > 10000
       for: 5m
       description: '{{ $labels.app }} har betydningsfull lag mot {{ $labels.topic }}'
-      action: "Prøv <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>""
+      action: "Prøv <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|loggene>"
       severity: warning
