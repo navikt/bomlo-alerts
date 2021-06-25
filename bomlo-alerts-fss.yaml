@@ -9,6 +9,10 @@ spec:
   receivers:
     slack:
       channel: '#team-bømlo-ops'
+  route:
+    group_wait: 2m
+    repeat_interval: 1h
+    group_interval: 5m
   alerts:
     - alert: bomlo-errorlogging
       expr: sum(increase(logback_events_total{team="tbd", level =~"error"} [5m]) ) by (app) > 0.9
