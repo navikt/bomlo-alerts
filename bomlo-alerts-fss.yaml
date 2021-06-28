@@ -9,7 +9,7 @@ spec:
   receivers:
     slack:
       channel: '#team-bømlo-ops'
-      prependText: '<!redteam>'
+      prependText: '<!subteam^S010U3KQ8LQ|redteam>'
   route:
     group_wait: 2m
     repeat_interval: 1h
