@@ -10,6 +10,9 @@ spec:
     slack:
       channel: '#team-bømlo-ops'
       prependText: '<!subteam^S010U3KQ8LQ|redteam>'
+      send_resolved: false
+      username: 'Jeg er bare en stakkars bot'
+      icon_emoji: ':fire:'
   route:
     group_wait: 2m
     repeat_interval: 1h
