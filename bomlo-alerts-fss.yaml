@@ -37,7 +37,7 @@ spec:
       action: "Se <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|sikkerlogg> eller <https://logs.adeo.no/goto/f781398321efa9651aadd16236179899|vanlig logg>"
       severity: warning
     - alert: bomlo-app-nede
-      expr: up{team="tbd",job="kubernetes-pods"} == 0
+      expr: up{team="tbd",job="kubernetes-pods"} == 1
       for: 5m
       description: "{{ $labels.app }} er nede"
       action: "Se <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|sikkerlogg> eller <https://logs.adeo.no/goto/f781398321efa9651aadd16236179899|vanlig logg>"
