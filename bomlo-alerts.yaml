@@ -9,7 +9,7 @@ spec:
   receivers:
     slack:
       channel: '#team-bømlo-ops'
-      prependText: '<!subteam^S010U3KQ8LQ|redteam>'
+      prependText: '<!subteam^S010U3KQ8LQ|redteam> - '
       send_resolved: true
       username: 'Jeg er bare en stakkars bot'
       icon_emoji: ':fire:'
@@ -27,7 +27,7 @@ spec:
     - alert: bomlo-kafka-lag
       expr:  sum(kafka_consumergroup_group_topic_sum_lag{group=~"^tbd-.+",group!="tbd-sparkel-stonadsstatistikk-v1",group!="tbd-sparkel-oppgaver-v1",group!="tbd-sparkel-arbeidsgiver-v1",group!="tbd-sparkel-gosys-v1"}) by (group,topic) > 10000
       for: 2m
-      description: '{{ $labels.group }} har {{ $value }} consumer lag mot {{ $labels.topic }}'
+      description: 'consumer group {{ $labels.group }} har høy consumer lag ({{ $value }}) mot {{ $labels.topic }}'
       action: "Se <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|sikkerlogg> eller <https://logs.adeo.no/goto/f781398321efa9651aadd16236179899|vanlig logg>"
       severity: danger
     - alert: bomlo-kontinuerlig-restart
