@@ -44,6 +44,6 @@ spec:
       severity: warning
     - alert: Høy andel HTTP serverfeil (5xx responser)
       severity: danger
-      expr: (100 * (sum by (backend) (rate(traefik_backend_requests_total{code=~"^5\\d\\d", backend=~"speil.nais.adeo.no/"}[3m])) / sum by (backend) (rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[3m])))) > 20
+      expr: sum(rate(traefik_backend_requests_total{code!~"^[23].*", backend=~"speil.nais.adeo.no/"}[5m])) by (backend) /  sum(rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[5m])) by (backend) > 20
       for: 3m
       action: "Sjekk loggene for å se hvorfor {{ $labels.backend }} returnerer {{ value | printf \"%.1f\" }} % HTTP feilresponser"
