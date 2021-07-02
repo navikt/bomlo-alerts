@@ -42,4 +42,9 @@ spec:
       description: "{{ $labels.app }} er nede"
       action: "Se <https://logs.adeo.no/goto/e16670da1103009f63d8f4c663f26be8|sikkerlogg> eller <https://logs.adeo.no/goto/f781398321efa9651aadd16236179899|vanlig logg>"
       severity: warning
+    - alert: Høy andel HTTP serverfeil (5xx responser)
+      severity: danger
+      expr: (100 * (sum by (backend) (rate(traefik_backend_requests_total{code=~"^5\\d\\d", backend=~"speil.nais.adeo.no/"}[3m])) / sum by (backend) (rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[3m])))) > 20
+      for: 3m
+      action: "Sjekk loggene for å se hvorfor {{ $labels.backend }} returnerer {{ value | printf \"%.1f\" }} % HTTP feilresponser"
 
