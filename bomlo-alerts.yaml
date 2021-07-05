@@ -53,3 +53,8 @@ spec:
       expr: sum(rate(traefik_backend_requests_total{code!~"^[23].*", backend=~"speil.nais.adeo.no/"}[5m])) by (backend) /  sum(rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[5m])) by (backend) > 20
       for: 3m
       action: "Sjekk loggene for å se hvorfor {{ $labels.backend }} returnerer {{ value | printf \"%.1f\" }} % HTTP feilresponser"
+    - alert: Lengre enn 26 timer siden forrige avstemmingsjobb ble fullført
+      severity: danger
+      expr: (time() - avstemming) > 93600
+      for: 3m
+      action: "Se <https://logs.adeo.no/goto/6994bbd9fff4517cc058d87bce4bd404|vanlig logg>  og kubectl describe cronjob spenn-avstemming i prod-fss/tbd"
