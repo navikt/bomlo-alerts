@@ -20,24 +20,28 @@ spec:
       expr: (100 * sum by (log_app) (rate(logd_messages_total{log_team="tbd",log_level="Error", log_app!="speil"}[5m])) / sum by (log_app) (rate(logd_messages_total{log_team="tbd", log_app!="speil"}[5m]))) > 10
       for: 5m
       description: "Høy feilrate: {{  $value | printf \"%.1f\" }} % i {{ $labels.log_app }} "
+      action: "Sjekk logger"
       severity: danger
     - alert: appDown
       expr: up{team="tbd",app!="speil",job="kubernetes-pods"} == 0
       for: 10m
       description: "{{ $labels.app }} er nede"
+      action: "Sjekk logger"
       severity: warning
     - alert: speilDown
       expr: up{team="tbd",app="speil",job="kubernetes-pods"} == 0
       for: 2m
       description: "Speil er nede"
+      action: "Sjekk logger"
       severity: danger
     - alert: httpErrors
       severity: danger
       expr: sum(rate(traefik_backend_requests_total{code!~"^[23].*", backend=~"speil.nais.adeo.no/"}[5m])) by (backend) /  sum(rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[5m])) by (backend) > 20
       for: 2m
       description: "{{ $labels.backend }} gir {{ value | printf \"%.1f\" }} % HTTP feilresponser"
+      action: "Sjekk logger"
     - alert: Lengre enn 26 timer siden forrige avstemmingsjobb ble fullført
       severity: danger
       expr: (time() - avstemming) > 93600
       for: 3m
-      action: "Se logg og prøv kubectl describe cronjob spenn-avstemming i prod-fss/tbd"
+      action: "Sjekk logger og kubectl describe cronjob spenn-avstemming i prod-fss/tbd"
