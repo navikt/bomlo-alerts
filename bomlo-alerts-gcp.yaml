@@ -20,17 +20,14 @@ spec:
       expr: (100 * sum by (log_app) (rate(logd_messages_total{log_team="tbd",log_level="Error"}[5m])) / sum by (log_app) (rate(logd_messages_total{log_team="tbd"}[5m]))) > 10
       for: 5m
       description: "Høy feilrate: {{  $value | printf \"%.1f\" }} % i {{ $labels.log_app }} "
-      action: "Se <https://logs.adeo.no/goto/4f2ec223a4446bd3dca1b42617e5c9bb|sikkerlogg>, <https://logs.adeo.no/goto/cb7ce4595256adf18fa25038db406182|vanlig logg> og <https://github.com/navikt/tbd/blob/master/redteam-wiki/kjente_feil.md|kjente feil>"
       severity: danger
     - alert: kafkaLag
       expr:  sum(kafka_consumergroup_group_topic_sum_lag{group=~"^tbd-.+",group!="tbd-sparkel-stonadsstatistikk-v1",group!="tbd-sparkel-oppgaver-v1",group!="tbd-sparkel-arbeidsgiver-v1",group!="tbd-sparkel-gosys-v1"}) by (group,topic) > 10000
       for: 10m
       description: 'consumer group: {{ $labels.group }} har høy consumer lag ({{ $value }}) mot: {{ $labels.topic }}'
-      action: "Se <https://logs.adeo.no/goto/4f2ec223a4446bd3dca1b42617e5c9bb|sikkerlogg> eller <https://logs.adeo.no/goto/cb7ce4595256adf18fa25038db406182|vanlig logg>"
       severity: warning
     - alert: appDown
       expr: up{team="tbd",job="kubernetes-pods"} == 0
       for: 10m
       description: "{{ $labels.app }} er nede"
-      action: "Se <https://logs.adeo.no/goto/4f2ec223a4446bd3dca1b42617e5c9bb|sikkerlogg> eller <https://logs.adeo.no/goto/cb7ce4595256adf18fa25038db406182|vanlig logg>"
       severity: danger
