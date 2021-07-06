@@ -17,7 +17,7 @@ spec:
     repeat_interval: 3h
   alerts:
     - alert: errorRate
-      expr: (100 * sum by (log_app) (rate(logd_messages_total{log_team="tbd",log_level="Error"}[5m])) / sum by (log_app) (rate(logd_messages_total{log_team="tbd"[5m]))) > 10
+      expr: (100 * sum by (log_app) (rate(logd_messages_total{log_team="tbd",log_level="Error"}[5m])) / sum by (log_app) (rate(logd_messages_total{log_team="tbd"[5m]}))) > 10
       for: 5m
       description: "Høy feilrate: {{  $value | printf \"%.1f\" }} % i {{ $labels.log_app }} "
       action: "Se <https://logs.adeo.no/goto/4f2ec223a4446bd3dca1b42617e5c9bb|sikkerlogg>, <https://logs.adeo.no/goto/cb7ce4595256adf18fa25038db406182|vanlig logg> og <https://github.com/navikt/tbd/blob/master/redteam-wiki/kjente_feil.md|kjente feil>"
