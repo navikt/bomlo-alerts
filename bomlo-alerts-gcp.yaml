@@ -29,7 +29,7 @@ spec:
       action: "Sjekk logger"
       severity: warning
     - alert: appDown
-      expr: min(up{team="tbd",job="kubernetes-pods"}) by (app) == 0
+      expr: max(up{team="tbd",job="kubernetes-pods"}) by (app) == 0
       for: 10m
       description: "{{ $labels.app }} er nede"
       action: "Sjekk logger"
