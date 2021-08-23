@@ -22,7 +22,7 @@ spec:
       description: "Høy feilrate: {{  $value | printf \"%.1f\" }} % i {{ $labels.log_app }} "
       action: "Sjekk logger"
       severity: danger
-    - alert: Høy lag for consumer group
+    - alert: Høy consumer lag
       expr:  sum(kafka_consumergroup_group_topic_sum_lag{group=~"^tbd-.+",group!="tbd-sparkel-stonadsstatistikk-v1",group!="tbd-sparkel-oppgaver-v1",group!="tbd-sparkel-arbeidsgiver-v1",group!="tbd-sparkel-gosys-v1"}) by (group,topic) > 10000
       for: 10m
       description: 'consumer group *{{ $labels.group }}* ligger {{ $value }} bak på *{{ $labels.topic }}*'
