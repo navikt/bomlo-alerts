@@ -37,13 +37,13 @@ spec:
     - alert: Økende Consumer Lag - spedisjon
       expr: sum(delta(kafka_consumergroup_group_topic_sum_lag{group="spedisjon-v1" }[5m])) by(group, topic)/(5*60) >5
       for: 5m
-      description: 'consumer group *{{ $labels.groupname }}* øker med  {{ $value }} pr sekund på *{{ $labels.topic }}*'
+      description: 'consumer group *{{ $labels.group }}* øker med  {{ $value }} pr sekund på *{{ $labels.topic }}*'
       action: "Sjekk logger"
       severity: danger
     - alert: Økende Consumer Lag - datavarehus
       expr: sum(delta(kafka_consumergroup_group_topic_sum_lag{topic="tbd.aapen-sykepenger-saksbehandlingsstatistikk" }[5m])) by(group, topic)/(5*60)>5
       for: 5m
-      description: 'consumer group *{{ $labels.groupname }}* øker med  {{ $value }} pr sekund på *{{ $labels.topic }}*'
+      description: 'consumer group *{{ $labels.group }}* øker med  {{ $value }} pr sekund på *{{ $labels.topic }}*'
       action: "Sjekk logger"
       severity: danger
 
