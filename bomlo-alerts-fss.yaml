@@ -36,7 +36,7 @@ spec:
       severity: danger
     - alert: httpErrors
       severity: danger
-      expr: sum(rate(traefik_backend_requests_total{code!~"^[23].*", backend=~"speil.nais.adeo.no/"}[5m])) by (backend) /  sum(rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[5m])) by (backend) > 20
+      expr: 100 * sum(rate(traefik_backend_requests_total{code!~"^[23].*", backend=~"speil.nais.adeo.no/"}[5m])) by (backend) /  sum(rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[5m])) by (backend) > 20
       for: 2m
       description: "{{ $labels.backend }} gir {{ value | printf \"%.1f\" }} % HTTP feilresponser"
       action: "Sjekk logger"
