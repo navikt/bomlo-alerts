@@ -38,7 +38,7 @@ spec:
       severity: danger
       expr: 100 * sum(rate(traefik_backend_requests_total{code!~"^[23].*", backend=~"speil.nais.adeo.no/"}[5m])) by (backend) /  sum(rate(traefik_backend_requests_total{backend=~"speil.nais.adeo.no/"}[5m])) by (backend) > 20
       for: 2m
-      description: "{{ $labels.backend }} gir {{ value | printf \"%.1f\" }} % HTTP feilresponser"
+      description: "{{ $labels.backend }} gir {{ $value | printf \"%.1f\" }} % HTTP feilresponser"
       action: "Sjekk logger"
     - alert: Lengre enn 26 timer siden forrige avstemmingsjobb ble fullført
       severity: danger
