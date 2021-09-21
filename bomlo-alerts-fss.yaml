@@ -50,5 +50,11 @@ spec:
       expr: sum(increase(vedtaksperiode_tilstander_totals{tilstand="TIL_UTBETALING"}[1h] )) - sum(increase(vedtaksperiode_tilstander_totals{tilstand="TIL_UTBETALING"}[1h] offset 1w)) < -100
       for: 15m
       action: "Sjekke logger i spenn"
+    - alert: Godkjenningsgrad er over 10 %-poeng lavere en samme tid forrige uke
+      severity: warning
+      expr: ((avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING",harVedtaksperiodeWarnings="0" } offset 1w) [1d:1h]) /avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING" } offset 1w) [1d:1h]) )- (avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING",harVedtaksperiodeWarnings="0" } ) [1d:1h]) /avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING" } ) [1d:1h])) )< -0.1
+      for: 15m
+      action: "Sjekke logger i spleis og spesialist"
+
 
 
