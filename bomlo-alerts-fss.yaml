@@ -45,3 +45,10 @@ spec:
       expr: (time() - avstemming) > 93600
       for: 3m
       action: "Sjekk logger og kubectl describe cronjob spenn-avstemming i prod-fss/tbd"
+    - alert: Nedgang i utbetalinger siden forrige uke er mer enn 100 pr time
+      severity: warning
+      expr: sum(increase(vedtaksperiode_tilstander_totals{tilstand="TIL_UTBETALING"}[1h] )) - sum(increase(vedtaksperiode_tilstander_totals{tilstand="TIL_UTBETALING"}[1h] offset 1w)) < -100
+      for: 15m
+      action: "Sjekke logger i spenn"
+
+
