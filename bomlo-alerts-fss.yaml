@@ -57,7 +57,7 @@ spec:
       action: "Sjekke logger i spleis og spesialist"
     - alert: Innkommende meldinger, differanse fra samme tid forrige uke
       severity: warning
-      expr: sum(increase(melding_unik_totals{app="spedisjon"}[1h])) by (type) - sum(increase(melding_unik_totals{app="spedisjon"}[1h] offset 1w)) by (type) <-100
+      expr: sum(increase(melding_unik_totals{app="spedisjon"}[1h])) by (type) - sum(increase(melding_unik_totals{app="spedisjon"}[1h] offset 1w)) by (type) <-200
       for: 30m
       description: "Det kommer færre meldinger av type {{ $labels.type }} enn forrige uke"
       action: "Sjekke logger i spedisjon"
