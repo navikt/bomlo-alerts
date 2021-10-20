@@ -57,7 +57,7 @@ spec:
       action: "Sjekke logger i spleis og spesialist"
     - alert: Antall innkomne meldinger har falt kraftig
       severity: warning
-      expr: sum(increase(melding_unik_totals{app="spedisjon"}[1h])) by (type) and ON() hour() > 5 < 22 and ON() day_of_week() > 0 < 6
+      expr: (sum(increase(melding_unik_totals{app="spedisjon"}[1h])) by (type) and ON() hour() > 5 < 22 and ON() day_of_week() > 0 < 6) < 1
       for: 15m
       action: "Sjekke logger"
 
