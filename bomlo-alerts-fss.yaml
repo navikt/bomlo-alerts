@@ -55,6 +55,11 @@ spec:
       expr: ((avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING",harVedtaksperiodeWarnings="0" } offset 1w) [1d:1h]) /avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING" } offset 1w) [1d:1h]) )- (avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING",harVedtaksperiodeWarnings="0" } ) [1d:1h]) /avg_over_time(sum(vedtaksperiode_tilstander_totals{tilstand="AVVENTER_GODKJENNING" } ) [1d:1h])) )< -0.1
       for: 15m
       action: "Sjekke logger i spleis og spesialist"
+    - alert: Antall innkomne meldinger har falt kraftig
+      severity: warning
+      expr: sum(increase(melding_unik_totals{app="spedisjon"}[1h])) by (type) and ON() hour() > 5 < 22 and ON() day_of_week() > 0 < 6
+      for: 15m
+      action: "Sjekke logger"
 
 
 
