@@ -9,7 +9,7 @@ spec:
   receivers:
     slack:
       channel: '#team-bømlo-ops'
-      prependText: '<!subteam^S02HCFXUSGM|redteamdev> - '
+      prependText: '<!subteam^S010U3KQ8LQ|redteam> - '
       send_resolved: true
       username: 'En bot'
       icon_emoji: ':naiser:'
