@@ -8,7 +8,7 @@ metadata:
 spec:
   receivers:
     slack:
-      channel: '#team-bømlo-ops'
+      channel: '#team-bømlo-alerts'
       prependText: '<!subteam^S010U3KQ8LQ|redteam> - '
       send_resolved: true
       username: 'En bot'
